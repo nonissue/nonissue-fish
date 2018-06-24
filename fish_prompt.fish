@@ -49,7 +49,7 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l white    ffffff
       set -l black    000000
       set -l ruby_red af0000
-      set -l go_blue  00d7d7
+      set -l go_blue  00d7d7 --bold
 
       # set -x color_initial_segment_exit     $white $red[2] --bold
       set -x color_initial_segment_su       $white $green[2] --bold
@@ -249,7 +249,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -l white (set_color -o fff)
   set -l offwhite (set_color -o fefefe)
 
-  set -l cwd $green ( basename (prompt_pwd))
+  set -l cwd $offwhite ( basename (prompt_pwd))
 
   if [ (_git_branch_name) ]
     set -l git_branch (_git_branch_name)
