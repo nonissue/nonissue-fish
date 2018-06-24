@@ -261,7 +261,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
       set git_info "$git_info$dirty$red"
     else if [ ~(_is_git_dirty) ]
       set -l clean "$normal ● "
-      set git_info " $white$git_info$clean$normal"
+      set git_info " $go_blue$git_info$clean$normal"
     end
   end
 
