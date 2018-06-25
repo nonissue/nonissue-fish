@@ -1,10 +1,30 @@
-# Nonissue mod of krisleech theme & bobthefish theme for fish
+# catfished
 
-# Info
+by: andy williams
+contact: my first name at nonissue . org
 
+## Info
+
+* Simple theme that shows current directory and git status in single-line fish prompt
+* Borrows heavily from `krisleech` and `bobthefish` fish themes from oh-my-fish
+  * info below
+* screenshot in the screenshot dirs
 * Very much work in progress
 * Lots of unnecessary code
 * Works best in iterm 2 with spacedust theme
+* this theme is currently not distributed through oh-my-fish, though that is my intention
+
+## Requirements
+
+* fish
+* oh-my-fish
+* nerd patched font
+
+## Issues
+
+* kind of hacky, but I couldn't find anything that matched my preferred terminal themes
+* I've only tested it on my machine, absolutely no guarantees that it works anywhere else
+
 
 ------------------------------------------------------------
 # ORIGINAL SOURCES
