@@ -44,9 +44,6 @@ end
 
 # almost entirely copied from bobthefish
 # some minor adjustments
-# NOTE: ONLY A FEW GLYPHS ARE CURRENTLY USED
-# I plan to implement the rest soon
-# I am keeping them here as a sketch of what I have to do
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
 
   set -x branch_glyph            \uF418 # different branch glyph
