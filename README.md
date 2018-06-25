@@ -1,3 +1,28 @@
+# Nonissue mod of krisleech theme & bobthefish theme for fish
+
+# Info
+
+* Very much work in progress
+* Lots of unnecessary code
+* Works best in iterm
+
+# Resources
+* https://jonasjacek.github.io/colors/
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------
+# ORIGINAL INFO
+
 ## krisleech
 
 A very simple theme optimized for Git. Less is more.

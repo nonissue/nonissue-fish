@@ -40,6 +40,8 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
     case 'nonissue_colors' # default dark theme
       #               light  medium dark
       #               ------ ------ ------
+      # set -l dust_bright_blue (set_color -o 1587DF)
+
       set -l red      cc9999 ce000f 660000
       set -l green    addc10 189303 0c4801
       set -l blue     48b4fb 005faf 255e87
@@ -51,12 +53,31 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l ruby_red af0000
       set -l go_blue  00d7d7 --bold
 
-      # set -x color_initial_segment_exit     $white $red[2] --bold
+      set -l dust_bright_blue (set_color 1587DF)
+
+      set -l dust_bright_blue 1587DF
+      set -l dust_blue 0E558C
+      set -l dust_green 3D8479
+      set -l dust_bright_green 52B2A3
+      set -l dust_bright_black 6E767B
+      set -l dust_bright_white E5E5E5
+      set -l dust_bright_magneta FF9446
+      set -l dust_black 07171B
+      set -l dust_bright_yellow FFD56D
+      set -l dust_bright_red EC5E01
+
+      set -l new_dark 262626
+      set -l new_mid 444444
+
+      set -x color_initial_segment_exit     $grey[3] $grey[1]
       set -x color_initial_segment_su       $white $green[2] --bold
       set -x color_initial_segment_jobs     $white $blue[3] --bold
 
+      set -x non_repo_bg_dirty              $grey[1] $ruby_red
+      set -x non_repo_bg_clean              $dust_bright_blue $white --bold
+
       set -x color_path                     $grey[3] $grey[2]
-      # set -x color_path_basename            $grey[3] $white --bold
+      set -x color_path_basename            $grey[3] $white --bold
       set -x color_path_nowrite             $red[3] $red[1]
       set -x color_path_nowrite_basename    $red[3] $red[1] --bold
 
@@ -77,16 +98,72 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -x color_virtualfish              $blue[2] $grey[1] --bold
       set -x color_virtualgo                $go_blue $black --bold
       set -x color_desk                     $blue[2] $grey[1] --bold
+
+    case 'light'
+      #               light  medium dark
+      #               ------ ------ ------
+      set -l red      cc9999 ce000f 660000
+      set -l green    addc10 189303 0c4801
+      set -l blue     48b4fb 005faf 255e87
+      set -l orange   f6b117 unused 3a2a03
+      set -l brown    bf5e00 803f00 4d2600
+      set -l grey     cccccc 999999 333333
+      set -l white    ffffff
+      set -l black    000000
+      set -l ruby_red af0000
+
+      set -x color_initial_segment_exit     $grey[3] $red[2] --bold
+      set -x color_initial_segment_su       $grey[3] $green[2] --bold
+      set -x color_initial_segment_jobs     $grey[3] $blue[3] --bold
+
+      set -x color_path                     $grey[1] $grey[2]
+      set -x color_path_basename            $grey[1] $grey[3] --bold
+      set -x color_path_nowrite             $red[1] $red[3]
+      set -x color_path_nowrite_basename    $red[1] $red[3] --bold
+
+      set -x color_repo                     $green[1] $green[3]
+      set -x color_repo_work_tree           $grey[1] $white --bold
+      set -x color_repo_dirty               $red[2] $white
+      set -x color_repo_staged              $orange[1] $orange[3]
+
+      set -x color_vi_mode_default          $grey[2] $grey[3] --bold
+      set -x color_vi_mode_insert           $green[2] $grey[3] --bold
+      set -x color_vi_mode_visual           $orange[1] $orange[3] --bold
+
+      set -x color_vagrant                  $blue[1] $white --bold
+      set -x color_k8s                      $green[1] $colorfg --bold
+      set -x color_username                 $grey[1] $blue[3] --bold
+      set -x color_hostname                 $grey[1] $blue[3]
+      set -x color_rvm                      $ruby_red $grey[1] --bold
+      set -x color_virtualfish              $blue[2] $grey[1] --bold
+      set -x color_virtualgo                $blue[2] $grey[1] --bold
+      set -x color_desk                     $blue[2] $grey[1] --bold
+
   end
 end
 
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
   # Powerline glyphs
-  set -x branch_glyph            \uE0A0
+  # set -x branch_glyph            \uE0A0
+  # # set -x right_black_arrow_glyph \uE0C6
+  # set -x right_black_arrow_glyph \uE0B0
+  # set -x right_arrow_glyph       \uE0B1
+  # # set -x right_arrow_glyph       \uE0B6
+  # # set -x right_arrow_glyph       \uE0B8
+  # # set -x right_black_arrow_glyph \uE0B8
+  # set -x left_black_arrow_glyph  \uE0D2
+  # # set -x left_arrow_glyph        \uE0B3
+  # set -x left_arrow_glyph        \ue0d2
+
+  # set -x branch_glyph            \uE0A0
+  set -x branch_glyph            \uF418
   set -x right_black_arrow_glyph \uE0B0
+  # set -x right_black_arrow_glyph \uE0C6
   set -x right_arrow_glyph       \uE0B1
   set -x left_black_arrow_glyph  \uE0B2
   set -x left_arrow_glyph        \uE0B3
+
+
 
   # Additional glyphs
   set -x detached_glyph          \u27A6
@@ -171,7 +248,6 @@ function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
 end
 
 function __nonissue_start_segment -S -d 'Start a prompt segment'
-  # taken from bobthefish
   set -l bg $argv[1]
   set -e argv[1]
   set -l fg $argv[1]
@@ -198,7 +274,7 @@ function __nonissue_start_segment -S -d 'Start a prompt segment'
 end
 
 function __nonissue_finish_segments -S -d 'Close open prompt segments'
-  if [ -n "$__nonissue_current_bg" ]
+  if [ -n "$__noissue_current_bg" ]
     set_color normal
     set_color $__nonissue_current_bg
     echo -ns $right_black_arrow_glyph ' '
@@ -220,6 +296,7 @@ function __nonissue_finish_segments -S -d 'Close open prompt segments'
   set __nonissue_current_bg
 end
 
+
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
@@ -232,45 +309,91 @@ end
 function fish_prompt -d 'nonissue, a mod of several existing themes'
   # Save the last status for later (do this before the `set` calls below)
   set -l last_status $status
+  set -x theme_color_scheme light
 
   __nonissue_glyphs
+  # __nonissue_colors light
   __nonissue_colors nonissue_colors
   type -q nonissue_colors
     and nonissue_colors
-  
-  set -l cyan (set_color -o cyan)
-  set -l yellow (set_color -o yellow)
-  set -l red (set_color -o red)
-  set -l blue (set_color -o blue)
-  set -l green (set_color -o green)
-  # set -l normal (set_color normal)
-  set -l darkgray (set_color -o 444)
-  set -l medgray (set_color -o 666)
-  set -l white (set_color -o fff)
-  set -l offwhite (set_color -o fefefe)
 
-  set -l cwd $offwhite ( basename (prompt_pwd))
+  # set -l __nonissue_current_bg
+  
+  set -l dust_bright_blue (set_color 1587DF)
+
+  set -l dust_bright_blue 1587DF
+  set -l dust_blue 0E558C
+  set -l dust_green 3D8479
+  set -l dust_bright_green 52B2A3
+  set -l dust_bright_black 6E767B
+  set -l dust_bright_white E5E5E5
+  set -l dust_bright_magneta FF9446
+  set -l dust_black 07171B
+  set -l dust_bright_yellow FFD56D
+  set -l dust_bright_red EC5E01
+
+  set -l new_dark 262626
+  set -l new_mid 444444
+
+  set -l reds      cc9999 ce000f 660000
+  set -l green    addc10 189303 0c4801
+  set -l blue     48b4fb 005faf 255e87
+  set -l orange   f6b117 unused 3a2a03
+  set -l brown    bf5e00 803f00 4d2600
+  set -l grey     cccccc 999999 333333
+  set -l white    ffffff
+  set -l black    000000
+  set -l ruby_red af0000
+  set -l go_blue (set_color 00d7d7 --bold)
+
+  set -l cwd (basename (prompt_pwd))
+
+  # set branch_glyph \uF418
+  set dirty_gylph \uF055
+  # set clean_glyph \uF111
+  set clean_glyph \uF058
 
   if [ (_git_branch_name) ]
     set -l git_branch (_git_branch_name)
-    # __nonissue_start_segment eee
-    set git_info "$branch_glyph $git_branch"
+    set git_info " $branch_glyph $git_branch"
 
     if [ (_is_git_dirty) ]
-      set -l dirty "$go_blue ◦ "
-      set git_info "$git_info$dirty$red"
+      set -l dirty $dirty_gylph
+      set git_info "$git_info $dirty"
     else if [ ~(_is_git_dirty) ]
-      set -l clean "$normal ● "
-      set git_info " $go_blue$git_info$clean$normal"
+      set -l clean $clean_glyph
+      set git_info "$git_info $clean"
     end
   end
 
-  __nonissue_start_segment 2a2a2a
-  echo -n -s $cwd '  '
-  
+  __nonissue_start_segment normal
+  # __nonissue_start_segment $color_initial_segment_exit
+  # set_color $dust_bright_blue
+  echo -n -s $cwd  '  '
 
-  __nonissue_start_segment eee
-  echo -n -s $git_info
+  # echo -ns $right_arrow_glyph
+  
+  
+  if [ (_is_git_dirty) ] 
+    __nonissue_start_segment $non_repo_bg_dirty
+    # __nonissue_start_segment $ruby_red
+    echo -n -s $git_info
+    echo -n '  '
+    # __nonissue_finish_segments
+  else if [ ~(_is_git_dirty) ]
+    __nonissue_start_segment normal
+    # __nonissue_start_segment $new_mid
+    echo -n -s $git_info
+    echo -n '  '
+  end
+
+  __nonissue_start_segment normal
+  set color normal
+  # echo -n 'end'
+  # echo -n ' '
+  # __nonissue_finish_segments
+  # echo -n ' '
+  
   # echo -n -s $cwd $red '|' $git_info $normal ⇒ ' ' $normal
   # set -l colors 333 666 aaa 
 #  set -l colors 600 900 c00
@@ -278,6 +401,6 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   # for color in $colors
   #   echo -n (set_color $color)">"
   # end
-  __nonissue_finish_segments
-  echo -n ' '
+  
+
 end
