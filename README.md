@@ -4,7 +4,7 @@
 
 * Very much work in progress
 * Lots of unnecessary code
-* Works best in iterm
+* Works best in iterm 2 with spacedust theme
 
 ------------------------------------------------------------
 # ORIGINAL SOURCES
