@@ -20,6 +20,12 @@ contact: my first name at nonissue . org
 * oh-my-fish
 * nerd patched font
 
+## install
+
+* copy folder to 
+* `/Users/{user}/.local/share/omf/themes/`
+* you may have to run `omf reload` and `exec fish` before it is recognized
+
 ## Issues
 
 * kind of hacky, but I couldn't find anything that matched my preferred terminal themes
