@@ -2,12 +2,13 @@
 # BASED ON KRISLEECH & BOBTHEFISH
 
 function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue'
+
   switch "$color_scheme"
-
     case 'spacedust'
-      #               light  medium dark
-      #               ------ ------ ------
-
+      # Based on spacedust terminal theme
+      # Minor adjustments, not exact
+      # Not all colors listed are used! I'm keeping them here 
+      # as a sketch so I know what else I have to implement
 
       # generics
       set -x grey       cccccc 999999 333333
@@ -64,6 +65,9 @@ end
 
 # almost entirely copied from bobthefish
 # some minor adjustments
+# NOTE: ONLY A FEW GLYPHS ARE CURRENTLY USED
+# I plan to implement the rest soon
+# I am keeping them here as a sketch of what I have to do
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
 
   set -x branch_glyph            \uF418 # different branch glyph
@@ -136,6 +140,7 @@ function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
 end
 
 # copied from bobthefish
+# function to print our separator and set BG if we wish
 function __nonissue_start_segment -S -d 'Start a prompt segment'
   set -l bg $argv[1]
   set -e argv[1]
@@ -163,6 +168,9 @@ function __nonissue_start_segment -S -d 'Start a prompt segment'
 end
 
 # copied from bobthefish
+# closes our segments
+# changes prompt back to default terminal background color
+# as we have changed it in the process of setting our custom bgs
 function __nonissue_finish_segments -S -d 'Close open prompt segments'
   if [ -n "$__noissue_current_bg" ]
     set_color normal
@@ -186,11 +194,14 @@ function __nonissue_finish_segments -S -d 'Close open prompt segments'
   set __nonissue_current_bg
 end
 
-
+# simple function to get git branch name
+# taken from krisleech
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
 
+# simple function to check if git repo is dirty
+# taken from krisleech
 function _is_git_dirty
   echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
