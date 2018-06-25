@@ -4,39 +4,35 @@
 function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue'
   switch "$color_scheme"
 
-    case 'nonissue_colors'
+    case 'spacedust'
       #               light  medium dark
       #               ------ ------ ------
 
-      set -l red      cc9999 ce000f 660000
-      set -l green    addc10 189303 0c4801
-      set -l blue     48b4fb 005faf 255e87
-      set -l orange   f6b117 unused 3a2a03
-      set -l brown    bf5e00 803f00 4d2600
-      set -l grey     cccccc 999999 333333
-      set -l white    ffffff
-      set -l black    000000
-      set -l ruby_red af0000
-      set -l go_blue  00d7d7 --bold
 
-      # my colors
-      set -x dust_bright_blue (set_color 1587DF)
-      set -x dust_bright_blue 1587DF
+      # generics
+      set -x grey       cccccc 999999 333333
+      set -x white      ffffff
+      set -x black      111111 # i dont want actual black tbh
+      set -l ruby_red af0000
+
+      # spacedust colors
       set -x dust_blue 0E558C
+      set -x dust_bright_blue 1587DF
       set -x dust_green 3D8479
       set -x dust_bright_green 52B2A3
+      set -x dust_grey 839496
+      set -x dust_black 07171B
       set -x dust_bright_black 6E767B
       set -x dust_bright_white E5E5E5
       set -x dust_bright_magneta FF9446
-      set -x dust_black 07171B
       set -x dust_bright_yellow FFD56D
+      set -x dust_red EB7000
+      set -x dust_redalt BC4B01
       set -x dust_bright_red EC5E01
-      set -x dust_red eb7000
-      set -x dust_red2 BC4B01
-
+      
       # only combos i use
       
-      set -x non_repo_bg_dirty              $grey[1] $ruby_red
+      set -x non_repo_bg_dirty              $grey[1] $dust_red
       set -x non_repo_bg_clean              $dust_bright_blue $white --bold
       set -x non_segment_exit               $grey[3] $grey[1]
 
@@ -59,26 +55,25 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -x color_vi_mode_insert           $green[2] $grey[3] --bold
       set -x color_vi_mode_visual           $orange[1] $orange[3] --bold
 
-      set -x color_vagrant                  $blue[1] $white --bold
       set -x color_k8s                      $green[2] $white --bold
       set -x color_username                 $grey[1] $blue[3] --bold
       set -x color_hostname                 $grey[1] $blue[3]
-      set -x color_rvm                      $ruby_red $grey[1] --bold
       set -x color_virtualfish              $blue[2] $grey[1] --bold
-      set -x color_virtualgo                $go_blue $black --bold
-      set -x color_desk                     $blue[2] $grey[1] --bold
   end
 end
 
 # almost entirely copied from bobthefish
 # some minor adjustments
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
-  set -x branch_glyph            \uF418
+
+  set -x branch_glyph            \uF418 # different branch glyph
   set -x right_black_arrow_glyph \uE0B0
-  
   set -x right_arrow_glyph       \uE0B1
   set -x left_black_arrow_glyph  \uE0B2
   set -x left_arrow_glyph        \uE0B3
+
+  set -x dirty_gylph             \uF055
+  set -x clean_glyph             \uF058
 
   # Additional glyphs
   set -x detached_glyph          \u27A6
@@ -119,15 +114,6 @@ function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
     set branch_glyph     \uF418
     set detached_glyph   \uF417
     set tag_glyph        \uF412
-
-    set virtualenv_glyph \uE73C ' '
-    set ruby_glyph       \uE791 ' '
-    set go_glyph         \uE626 ' '
-
-    set vagrant_running_glyph  \uF431 # ↑ 'running'
-    set vagrant_poweroff_glyph \uF433 # ↓ 'poweroff'
-    set vagrant_aborted_glyph  \uF468 # ✕ 'aborted'
-    set vagrant_unknown_glyph  \uF421 # strange cases
 
     set git_dirty_glyph      \uF448 '' # nf-oct-pencil
     set git_staged_glyph     \uF0C7 '' # nf-fa-save
@@ -213,10 +199,10 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   echo ' '
   # Save the last status for later (do this before the `set` calls below)
   set -l last_status $status
-  set -x theme_color_scheme light
+  set -x theme_color_scheme spacedust
 
   __nonissue_glyphs
-  __nonissue_colors nonissue_colors
+  __nonissue_colors spacedust
 
   type -q nonissue_colors
     and nonissue_colors
@@ -224,9 +210,6 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -l __nonissue_current_bg
 
   set -l cwd (basename (prompt_pwd))
-
-  set dirty_gylph \uF055
-  set clean_glyph \uF058
 
   if [ (_git_branch_name) ]
     set -l git_branch (_git_branch_name)
@@ -241,7 +224,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
     end
   end
 
-  __nonissue_start_segment $dust_red2 $white
+  __nonissue_start_segment $dust_redalt $white
   echo -n -s $cwd  ' '
   
   if [ (_git_branch_name) ]
