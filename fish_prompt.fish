@@ -4,43 +4,10 @@
 
 function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue'
   switch "$color_scheme"
-    case 'user'
-      __nonissue_user_color_scheme_deprecated
-      return
 
-    case 'nonissue_colors1'
-      set -l colorfg white
-      [ "$color_scheme" = 'terminal-dark-white' ]; and set colorfg white
-      set -x color_initial_segment_exit     white red --bold
-      set -x color_initial_segment_su       white green --bold
-      set -x color_initial_segment_jobs     white blue --bold
-
-      set -x color_path                     white white
-      set -x color_path_basename            white white --bold
-      set -x color_path_nowrite             black $colorfg
-      set -x color_path_nowrite_basename    magenta $colorfg --bold
-
-      set -x color_repo                     green $colorfg
-      set -x color_repo_work_tree           black $colorfg --bold
-      set -x color_repo_dirty               brred $colorfg
-      set -x color_repo_staged              yellow $colorfg
-
-      set -x color_vi_mode_default          brblue $colorfg --bold
-      set -x color_vi_mode_insert           brgreen $colorfg --bold
-      set -x color_vi_mode_visual           bryellow $colorfg --bold
-
-      set -x color_vagrant                  brcyan $colorfg
-      set -x color_k8s                      magenta white --bold
-      set -x color_username                 white black --bold
-      set -x color_hostname                 white black
-      set -x color_rvm                      brmagenta $colorfg --bold
-      set -x color_virtualfish              brblue $colorfg --bold
-      set -x color_virtualgo                brblue $colorfg --bold
-      set -x color_desk                     brblue $colorfg --bold
     case 'nonissue_colors' # default dark theme
       #               light  medium dark
       #               ------ ------ ------
-      # set -l dust_bright_blue (set_color -o 1587DF)
 
       set -l red      cc9999 ce000f 660000
       set -l green    addc10 189303 0c4801
@@ -53,8 +20,8 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l ruby_red af0000
       set -l go_blue  00d7d7 --bold
 
+      # my colors
       set -l dust_bright_blue (set_color 1587DF)
-
       set -l dust_bright_blue 1587DF
       set -l dust_blue 0E558C
       set -l dust_green 3D8479
@@ -66,16 +33,20 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l dust_bright_yellow FFD56D
       set -l dust_bright_red EC5E01
 
-      set -l new_dark 262626
-      set -l new_mid 444444
+      # only combos i use
+      
+      set -x non_repo_bg_dirty              $grey[1] $ruby_red
+      set -x non_repo_bg_clean              $dust_bright_blue $white --bold
+      set -x non_segment_exit               $grey[3] $grey[1]
 
+
+      # the rest
       set -x color_initial_segment_exit     $grey[3] $grey[1]
       set -x color_initial_segment_su       $white $green[2] --bold
       set -x color_initial_segment_jobs     $white $blue[3] --bold
 
-      set -x non_repo_bg_dirty              $grey[1] $ruby_red
-      set -x non_repo_bg_clean              $dust_bright_blue $white --bold
 
+      
       set -x color_path                     $grey[3] $grey[2]
       set -x color_path_basename            $grey[3] $white --bold
       set -x color_path_nowrite             $red[3] $red[1]
@@ -98,72 +69,17 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -x color_virtualfish              $blue[2] $grey[1] --bold
       set -x color_virtualgo                $go_blue $black --bold
       set -x color_desk                     $blue[2] $grey[1] --bold
-
-    case 'light'
-      #               light  medium dark
-      #               ------ ------ ------
-      set -l red      cc9999 ce000f 660000
-      set -l green    addc10 189303 0c4801
-      set -l blue     48b4fb 005faf 255e87
-      set -l orange   f6b117 unused 3a2a03
-      set -l brown    bf5e00 803f00 4d2600
-      set -l grey     cccccc 999999 333333
-      set -l white    ffffff
-      set -l black    000000
-      set -l ruby_red af0000
-
-      set -x color_initial_segment_exit     $grey[3] $red[2] --bold
-      set -x color_initial_segment_su       $grey[3] $green[2] --bold
-      set -x color_initial_segment_jobs     $grey[3] $blue[3] --bold
-
-      set -x color_path                     $grey[1] $grey[2]
-      set -x color_path_basename            $grey[1] $grey[3] --bold
-      set -x color_path_nowrite             $red[1] $red[3]
-      set -x color_path_nowrite_basename    $red[1] $red[3] --bold
-
-      set -x color_repo                     $green[1] $green[3]
-      set -x color_repo_work_tree           $grey[1] $white --bold
-      set -x color_repo_dirty               $red[2] $white
-      set -x color_repo_staged              $orange[1] $orange[3]
-
-      set -x color_vi_mode_default          $grey[2] $grey[3] --bold
-      set -x color_vi_mode_insert           $green[2] $grey[3] --bold
-      set -x color_vi_mode_visual           $orange[1] $orange[3] --bold
-
-      set -x color_vagrant                  $blue[1] $white --bold
-      set -x color_k8s                      $green[1] $colorfg --bold
-      set -x color_username                 $grey[1] $blue[3] --bold
-      set -x color_hostname                 $grey[1] $blue[3]
-      set -x color_rvm                      $ruby_red $grey[1] --bold
-      set -x color_virtualfish              $blue[2] $grey[1] --bold
-      set -x color_virtualgo                $blue[2] $grey[1] --bold
-      set -x color_desk                     $blue[2] $grey[1] --bold
-
   end
 end
 
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
-  # Powerline glyphs
-  # set -x branch_glyph            \uE0A0
-  # # set -x right_black_arrow_glyph \uE0C6
-  # set -x right_black_arrow_glyph \uE0B0
-  # set -x right_arrow_glyph       \uE0B1
-  # # set -x right_arrow_glyph       \uE0B6
-  # # set -x right_arrow_glyph       \uE0B8
-  # # set -x right_black_arrow_glyph \uE0B8
-  # set -x left_black_arrow_glyph  \uE0D2
-  # # set -x left_arrow_glyph        \uE0B3
-  # set -x left_arrow_glyph        \ue0d2
-
   # set -x branch_glyph            \uE0A0
   set -x branch_glyph            \uF418
   set -x right_black_arrow_glyph \uE0B0
-  # set -x right_black_arrow_glyph \uE0C6
+  
   set -x right_arrow_glyph       \uE0B1
   set -x left_black_arrow_glyph  \uE0B2
   set -x left_arrow_glyph        \uE0B3
-
-
 
   # Additional glyphs
   set -x detached_glyph          \u27A6
@@ -177,20 +93,7 @@ function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
   set -x superscript_glyph       \u00B9 \u00B2 \u00B3
   set -x virtualenv_glyph        \u25F0
   set -x pypy_glyph              \u1D56
-
-  set -x ruby_glyph              ''
-  set -x go_glyph                ''
-
   # Desk glyphs
-  set -x desk_glyph              \u25F2
-
-  # Vagrant glyphs
-  set -x vagrant_running_glyph   \u2191 # ↑ 'running'
-  set -x vagrant_poweroff_glyph  \u2193 # ↓ 'poweroff'
-  set -x vagrant_aborted_glyph   \u2715 # ✕ 'aborted'
-  set -x vagrant_saved_glyph     \u21E1 # ⇡ 'saved'
-  set -x vagrant_stopping_glyph  \u21E3 # ⇣ 'stopping'
-  set -x vagrant_unknown_glyph   '!'    # strange cases
 
   # Git glyphs
   set -x git_dirty_glyph      '*'
@@ -313,12 +216,11 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -x theme_color_scheme light
 
   __nonissue_glyphs
-  # __nonissue_colors light
   __nonissue_colors nonissue_colors
   type -q nonissue_colors
     and nonissue_colors
 
-  # set -l __nonissue_current_bg
+  set -l __nonissue_current_bg
   
   set -l dust_bright_blue (set_color 1587DF)
 
@@ -335,9 +237,6 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -l dust_red eb7000
   set -l dust_red2 BC4B01
 
-  set -l new_dark 262626
-  set -l new_mid 444444
-
   set -l reds      cc9999 ce000f 660000
   set -l green    addc10 189303 0c4801
   set -l blue     48b4fb 005faf 255e87
@@ -351,9 +250,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
 
   set -l cwd (basename (prompt_pwd))
 
-  # set branch_glyph \uF418
   set dirty_gylph \uF055
-  # set clean_glyph \uF111
   set clean_glyph \uF058
 
   if [ (_git_branch_name) ]
@@ -370,11 +267,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   end
 
   __nonissue_start_segment $dust_red2 $white
-  # __nonissue_start_segment $color_initial_segment_exit
-  # set_color $dust_bright_blue
   echo -n -s $cwd  ' '
-
-  # echo -ns $right_arrow_glyph
   
   if [ (_git_branch_name) ]
     if [ (_is_git_dirty) ] 
@@ -383,7 +276,6 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
       # __nonissue_start_segment $ruby_red
       echo -n -s $git_info
       echo -n '  '
-      # __nonissue_finish_segments
     else if [ ~(_is_git_dirty) ]
       __nonissue_start_segment normal $dust_bright_green
       set -x end_sep $dust_bright_green
@@ -395,15 +287,10 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
 
   __nonissue_start_segment normal $end_sep
   set color normal
-  # echo -n 'end'
   echo -n ' '
-  # __nonissue_finish_segments
-  # echo -n ' '
   
-  # echo -n -s $cwd $red '|' $git_info $normal ⇒ ' ' $normal
+  
   # set -l colors 333 666 aaa 
-#  set -l colors 600 900 c00
-  # echo -n ' '
   # for color in $colors
   #   echo -n (set_color $color)">"
   # end
