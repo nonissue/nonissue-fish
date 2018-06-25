@@ -139,6 +139,7 @@ function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
   end
 end
 
+
 # copied from bobthefish
 # function to print our separator and set BG if we wish
 function __nonissue_start_segment -S -d 'Start a prompt segment'
