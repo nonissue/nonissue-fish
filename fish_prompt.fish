@@ -307,6 +307,7 @@ end
 
 
 function fish_prompt -d 'nonissue, a mod of several existing themes'
+  echo ' '
   # Save the last status for later (do this before the `set` calls below)
   set -l last_status $status
   set -x theme_color_scheme light
@@ -331,6 +332,8 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -l dust_black 07171B
   set -l dust_bright_yellow FFD56D
   set -l dust_bright_red EC5E01
+  set -l dust_red eb7000
+  set -l dust_red2 BC4B01
 
   set -l new_dark 262626
   set -l new_mid 444444
@@ -366,7 +369,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
     end
   end
 
-  __nonissue_start_segment normal
+  __nonissue_start_segment $dust_red2 $white
   # __nonissue_start_segment $color_initial_segment_exit
   # set_color $dust_bright_blue
   echo -n -s $cwd  '  '
@@ -375,22 +378,24 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   
   
   if [ (_is_git_dirty) ] 
-    __nonissue_start_segment $non_repo_bg_dirty
+    __nonissue_start_segment normal $dust_bright_yellow
+    set -x end_sep $dust_bright_yellow
     # __nonissue_start_segment $ruby_red
     echo -n -s $git_info
     echo -n '  '
     # __nonissue_finish_segments
   else if [ ~(_is_git_dirty) ]
-    __nonissue_start_segment normal
+    __nonissue_start_segment normal $dust_bright_green
+    set -x end_sep $dust_bright_green
     # __nonissue_start_segment $new_mid
     echo -n -s $git_info
-    echo -n '  '
+    echo -n '   '
   end
 
-  __nonissue_start_segment normal
+  __nonissue_start_segment normal $end_sep
   set color normal
   # echo -n 'end'
-  # echo -n ' '
+  echo -n ' '
   # __nonissue_finish_segments
   # echo -n ' '
   
