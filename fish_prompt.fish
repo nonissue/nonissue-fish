@@ -372,24 +372,25 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   __nonissue_start_segment $dust_red2 $white
   # __nonissue_start_segment $color_initial_segment_exit
   # set_color $dust_bright_blue
-  echo -n -s $cwd  '  '
+  echo -n -s $cwd  ' '
 
   # echo -ns $right_arrow_glyph
   
-  
-  if [ (_is_git_dirty) ] 
-    __nonissue_start_segment normal $dust_bright_yellow
-    set -x end_sep $dust_bright_yellow
-    # __nonissue_start_segment $ruby_red
-    echo -n -s $git_info
-    echo -n '  '
-    # __nonissue_finish_segments
-  else if [ ~(_is_git_dirty) ]
-    __nonissue_start_segment normal $dust_bright_green
-    set -x end_sep $dust_bright_green
-    # __nonissue_start_segment $new_mid
-    echo -n -s $git_info
-    echo -n '   '
+  if [ (_git_branch_name) ]
+    if [ (_is_git_dirty) ] 
+      __nonissue_start_segment normal $dust_bright_yellow
+      set -x end_sep $dust_bright_yellow
+      # __nonissue_start_segment $ruby_red
+      echo -n -s $git_info
+      echo -n '  '
+      # __nonissue_finish_segments
+    else if [ ~(_is_git_dirty) ]
+      __nonissue_start_segment normal $dust_bright_green
+      set -x end_sep $dust_bright_green
+      # __nonissue_start_segment $new_mid
+      echo -n -s $git_info
+      echo -n '  '
+    end
   end
 
   __nonissue_start_segment normal $end_sep
