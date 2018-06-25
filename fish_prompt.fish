@@ -1,11 +1,10 @@
 # name: nonissue
-# BASED ON KRISLEECH
-# Functions taken from bobthefish
+# BASED ON KRISLEECH & BOBTHEFISH
 
 function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue'
   switch "$color_scheme"
 
-    case 'nonissue_colors' # default dark theme
+    case 'nonissue_colors'
       #               light  medium dark
       #               ------ ------ ------
 
@@ -21,17 +20,19 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l go_blue  00d7d7 --bold
 
       # my colors
-      set -l dust_bright_blue (set_color 1587DF)
-      set -l dust_bright_blue 1587DF
-      set -l dust_blue 0E558C
-      set -l dust_green 3D8479
-      set -l dust_bright_green 52B2A3
-      set -l dust_bright_black 6E767B
-      set -l dust_bright_white E5E5E5
-      set -l dust_bright_magneta FF9446
-      set -l dust_black 07171B
-      set -l dust_bright_yellow FFD56D
-      set -l dust_bright_red EC5E01
+      set -x dust_bright_blue (set_color 1587DF)
+      set -x dust_bright_blue 1587DF
+      set -x dust_blue 0E558C
+      set -x dust_green 3D8479
+      set -x dust_bright_green 52B2A3
+      set -x dust_bright_black 6E767B
+      set -x dust_bright_white E5E5E5
+      set -x dust_bright_magneta FF9446
+      set -x dust_black 07171B
+      set -x dust_bright_yellow FFD56D
+      set -x dust_bright_red EC5E01
+      set -x dust_red eb7000
+      set -x dust_red2 BC4B01
 
       # only combos i use
       
@@ -39,13 +40,10 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -x non_repo_bg_clean              $dust_bright_blue $white --bold
       set -x non_segment_exit               $grey[3] $grey[1]
 
-
       # the rest
       set -x color_initial_segment_exit     $grey[3] $grey[1]
       set -x color_initial_segment_su       $white $green[2] --bold
       set -x color_initial_segment_jobs     $white $blue[3] --bold
-
-
       
       set -x color_path                     $grey[3] $grey[2]
       set -x color_path_basename            $grey[3] $white --bold
@@ -72,8 +70,9 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
   end
 end
 
+# almost entirely copied from bobthefish
+# some minor adjustments
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
-  # set -x branch_glyph            \uE0A0
   set -x branch_glyph            \uF418
   set -x right_black_arrow_glyph \uE0B0
   
@@ -150,6 +149,7 @@ function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
   end
 end
 
+# copied from bobthefish
 function __nonissue_start_segment -S -d 'Start a prompt segment'
   set -l bg $argv[1]
   set -e argv[1]
@@ -176,6 +176,7 @@ function __nonissue_start_segment -S -d 'Start a prompt segment'
   set __nonissue_current_bg $bg
 end
 
+# copied from bobthefish
 function __nonissue_finish_segments -S -d 'Close open prompt segments'
   if [ -n "$__noissue_current_bg" ]
     set_color normal
@@ -208,7 +209,6 @@ function _is_git_dirty
   echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
 
-
 function fish_prompt -d 'nonissue, a mod of several existing themes'
   echo ' '
   # Save the last status for later (do this before the `set` calls below)
@@ -217,36 +217,11 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
 
   __nonissue_glyphs
   __nonissue_colors nonissue_colors
+
   type -q nonissue_colors
     and nonissue_colors
 
   set -l __nonissue_current_bg
-  
-  set -l dust_bright_blue (set_color 1587DF)
-
-  set -l dust_bright_blue 1587DF
-  set -l dust_blue 0E558C
-  set -l dust_green 3D8479
-  set -l dust_bright_green 52B2A3
-  set -l dust_bright_black 6E767B
-  set -l dust_bright_white E5E5E5
-  set -l dust_bright_magneta FF9446
-  set -l dust_black 07171B
-  set -l dust_bright_yellow FFD56D
-  set -l dust_bright_red EC5E01
-  set -l dust_red eb7000
-  set -l dust_red2 BC4B01
-
-  set -l reds      cc9999 ce000f 660000
-  set -l green    addc10 189303 0c4801
-  set -l blue     48b4fb 005faf 255e87
-  set -l orange   f6b117 unused 3a2a03
-  set -l brown    bf5e00 803f00 4d2600
-  set -l grey     cccccc 999999 333333
-  set -l white    ffffff
-  set -l black    000000
-  set -l ruby_red af0000
-  set -l go_blue (set_color 00d7d7 --bold)
 
   set -l cwd (basename (prompt_pwd))
 
@@ -273,13 +248,11 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
     if [ (_is_git_dirty) ] 
       __nonissue_start_segment normal $dust_bright_yellow
       set -x end_sep $dust_bright_yellow
-      # __nonissue_start_segment $ruby_red
       echo -n -s $git_info
       echo -n '  '
     else if [ ~(_is_git_dirty) ]
       __nonissue_start_segment normal $dust_bright_green
       set -x end_sep $dust_bright_green
-      # __nonissue_start_segment $new_mid
       echo -n -s $git_info
       echo -n '  '
     end
