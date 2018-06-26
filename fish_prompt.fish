@@ -74,10 +74,10 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -x another_orange ED9366
       set -l peach E6B673
 
-      set -l med_blue 399EE6
-      set -l pale_blue 55B4D4
-      set -l darker_blue 5CA4D4
-      set -l darkest_blue 2571A4
+      set -x med_blue 399EE6
+      set -x pale_blue 55B4D4
+      set -x darker_blue 5CA4D4
+      set -x darkest_blue 2571A4
       
       set -l pink F07171
       set -x red F51818
@@ -87,6 +87,9 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
 
       set -x teal 4CBF99
       set -x puke_green 86B300
+      set -x dust_green 3D8479
+      set -x dust_bright_green 52B2A3
+
 
       set -x light_grey DEE0E1
       set -x light_grey2 D9DBDD
@@ -109,6 +112,10 @@ end
 function __nonissue_glyphs -S -d 'Define glyphs used by nonissue'
 
   set -x branch_glyph            \uF418 # different branch glyph
+  set -x branch_glyphalt         \uFB2B
+  set -x branch_glyphalt2        \uE725
+  set -x branch_folder_glyph     \uE5FB
+  set -x git_square              \uF1D2
   set -x right_black_arrow_glyph \uE0B0
   set -x right_arrow_glyph       \uE0B1
 
@@ -225,14 +232,14 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
       set -l setdarkgrey (set_color -o $dark_grey)
       set -l git_branch (_git_branch_name)
 
-      set git_info "$setgrey$branch_glyph $setdarkgrey$git_branch"
+      set git_info " $setdarkgrey$git_branch"
     end
   end
 
   if [ "$theme_show_status" != false ]
     if [ (_git_branch_name) ]
       if [ (_is_git_dirty) ]
-        set -l setred (set_color -o $red)
+        set -l setred (set_color $red)
         set -l dirty $dirty_gylph 
         set -l setorange (set_color -o $another_orange)
         set git_info "$setorange$git_info $setred$branch_glyph "
@@ -240,7 +247,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
       else if [ ~(_is_git_dirty) ]
         set -l setgreen (set_color -o $puke_green)
         set -l clean $clean_glyph
-        set git_info "$git_info $setgreen$branch_glyph "
+        set git_info "$git_info $setgreen$branch_glyphalt2 "
         echo -n -s $git_info
       end
     end
