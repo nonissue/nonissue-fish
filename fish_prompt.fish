@@ -214,57 +214,63 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   # else 
   #   ~no git stuff~
   # end
-  
+  if [ "$theme_show_dir" != false ]
+    # __nonissue_start_segment $curdir_bg
+    echo -n -s $cwd  ''
+  end
+
+  if [ "$theme_show_branch" != false ]
     if [ (_git_branch_name) ]
       set -l setgrey (set_color -o $med_grey)
       set -l setdarkgrey (set_color -o $dark_grey)
       set -l git_branch (_git_branch_name)
 
-      if [ "$theme_show_branch" != false ]
-        set git_info "$setgrey$branch_glyph $setdarkgrey$git_branch"
-      else if [ "$theme_show_status" != false ]
-        set git_info " $setgrey$branch_glyph"
-      end
-
-      if [ (_is_git_dirty) ]
-        set -l setred (set_color -o $red)
-        set -l dirty $dirty_gylph
-        # set_color -o $rich_orange 
-        set -l setorange (set_color -o $another_orange)
-        set git_info "$setorange$git_info $setred$dirty"
-      else if [ ~(_is_git_dirty) ]
-        set -l setgreen (set_color -o $puke_green)
-        set -l clean $clean_glyph
-        set git_info "$git_info $setgreen$clean"
-      end
-  end
-
-  __nonissue_start_segment $curdir_bg
-  echo -n -s $cwd  ' '
-  
-  if [ (_git_branch_name) ]
-    if [ (_is_git_dirty) ] 
-      __nonissue_start_segment $repo_bg_dirty
-      set -x end_sep $repo_bg_dirty[2]
-      echo -n -s $git_info
-      echo -n '  '
-    else if [ ~(_is_git_dirty) ]
-      __nonissue_start_segment $repo_bg_clean
-      set -x end_sep $repo_bg_clean[2]
-      echo -n -s $git_info
-      echo -n '  '
+      set git_info "$setgrey$branch_glyph $setdarkgrey$git_branch"
     end
   end
 
-  set -l colors $light_grey $med_grey $dark_grey
+  if [ "$theme_show_status" != false ]
+    if [ (_git_branch_name) ]
+      if [ (_is_git_dirty) ]
+        set -l setred (set_color -o $red)
+        set -l dirty $dirty_gylph 
+        set -l setorange (set_color -o $another_orange)
+        set git_info "$setorange$git_info $setred$branch_glyph "
+        echo -n -s $git_info
+      else if [ ~(_is_git_dirty) ]
+        set -l setgreen (set_color -o $puke_green)
+        set -l clean $clean_glyph
+        set git_info "$git_info $setgreen$branch_glyph "
+        echo -n -s $git_info
+      end
+    end
+  end
+  
 
+  # if [ (_git_branch_name) ]
+  #   if [ (_is_git_dirty) ] 
+  #     __nonissue_start_segment $repo_bg_dirty
+  #     set -x end_sep $repo_bg_dirty[2]
+  #     echo -n -s $git_info
+  #     echo -n '  '
+  #   else if [ ~(_is_git_dirty) ]
+  #     __nonissue_start_segment $repo_bg_clean
+  #     set -x end_sep $repo_bg_clean[2]
+  #     echo -n -s $git_info
+  #     echo -n '  '
+  #   end
+  # end
+
+  set -l colors $light_grey $med_grey $dark_grey
   for color in $colors
     echo -n (set_color $color)">"
   end
+  echo -n " "
+  
 
   # __nonissue_start_segment normal $end_sep
   set color normal
-  echo -n '  '
+  
   __nonissue_finish_segments
   
 end
