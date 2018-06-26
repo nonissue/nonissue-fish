@@ -1,4 +1,4 @@
-# catfished
+# nonissue
 
 by: andy williams
 contact: my first name at nonissue . org
@@ -18,7 +18,9 @@ contact: my first name at nonissue . org
 ## Settings:
 
 `set -x theme_show_branch bool`
+
 `set -x theme_show_status bool`
+
 `set -x theme_show_dir bool`
 
 ## Info
