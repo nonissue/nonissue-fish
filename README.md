@@ -3,17 +3,6 @@
 by: andy williams
 contact: my first name at nonissue . org
 
-## Info
-
-* Simple theme that shows current directory and git status in single-line fish prompt
-* Borrows heavily from `krisleech` and `bobthefish` fish themes from oh-my-fish
-  * info below
-* screenshot in the screenshot dirs
-* Very much work in progress
-* Lots of unnecessary code
-* Works best in iterm 2 with spacedust theme
-* this theme is currently not distributed through oh-my-fish, though that is my intention
-
 ## Requirements
 
 * fish
@@ -25,6 +14,23 @@ contact: my first name at nonissue . org
 * copy folder to 
 * `/Users/{user}/.local/share/omf/themes/`
 * you may have to run `omf reload` and `exec fish` before it is recognized
+
+## Settings:
+
+`set -x theme_show_branch bool`
+`set -x theme_show_status bool`
+`set -x theme_show_dir bool`
+
+## Info
+
+* Simple theme that shows current directory and git status in single-line fish prompt
+* Borrows heavily from `krisleech` and `bobthefish` fish themes from oh-my-fish
+  * info below
+* screenshot in the screenshot dirs
+* Very much work in progress
+* Lots of unnecessary code
+* Works best in iterm 2 with spacedust theme
+* this theme is currently not distributed through oh-my-fish, though that is my intention
 
 ## Issues
 
