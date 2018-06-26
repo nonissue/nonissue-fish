@@ -33,12 +33,19 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       
       # only combos i use
       
-      set -x non_repo_bg_dirty              $grey[1] $dust_red
-      set -x non_repo_bg_clean              $dust_bright_blue $white --bold
-      set -x non_segment_exit               $grey[3] $grey[1]
+      set -x repo_bg_dirty                  normal $dust_bright_yellow
+      set -x repo_bg_clean                  normal $dust_bright_green
+      set -x curdir_bg                      $dust_redalt $white
+      set -x segment_exit                   $grey[3] $grey[1]
 
       # the rest
       # set -x color_initial_segment_exit     $grey[3] $grey[1]
+    case 'light'
+      set -x grey       cccccc 999999 333333
+      set -x white      ffffff
+      set -x black      111111 # i dont want actual black tbh
+      set -l ruby_red af0000
+
   end
 end
 
@@ -151,18 +158,22 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
     end
   end
 
-  __nonissue_start_segment $dust_redalt $white
+  __nonissue_start_segment $curdir_bg
   echo -n -s $cwd  ' '
   
   if [ (_git_branch_name) ]
     if [ (_is_git_dirty) ] 
-      __nonissue_start_segment normal $dust_bright_yellow
-      set -x end_sep $dust_bright_yellow
+      __nonissue_start_segment $repo_bg_dirty
+      # hmm, below is a workaround to change the last
+      # separator to match the current git status
+      set -x end_sep $repo_bg_dirty[2]
+      # set -x end_sep $dust_bright_yellow
       echo -n -s $git_info
       echo -n '  '
     else if [ ~(_is_git_dirty) ]
-      __nonissue_start_segment normal $dust_bright_green
-      set -x end_sep $dust_bright_green
+      __nonissue_start_segment $repo_bg_clean
+      set -x end_sep $repo_bg_clean[2]
+      # set -x end_sep $dust_bright_green
       echo -n -s $git_info
       echo -n '  '
     end
