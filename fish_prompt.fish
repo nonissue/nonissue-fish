@@ -237,7 +237,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
 
   # __nonissue_start_segment normal $end_sep
   set color normal
-  echo -n '   '
+  echo -n '  '
   __nonissue_finish_segments
   
 end
