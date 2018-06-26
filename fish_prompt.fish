@@ -90,7 +90,7 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
 
       set -x curdir_bg                      $lightest_grey $darkest_blue --bold
       set -x repo_bg_dirty                  normal normal --bold
-      set -x repo_bg_clean                  $teal $white --bold
+      set -x repo_bg_clean                  normal normal --bold
       
       set -x segment_exit                   $grey[3] $grey[1]
 
