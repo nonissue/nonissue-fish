@@ -1,6 +1,13 @@
 # name: nonissue
 # BASED ON KRISLEECH & BOBTHEFISH
 
+# Todo:
+# [ ] finalize themes
+# [ ] allow user to set color scheme
+# [ ] allow user to toggle git branch
+# [ ] allow user to toggle git status
+
+
 function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue'
 
   switch "$color_scheme"
@@ -182,6 +189,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   # Save the last status for later (do this before the `set` calls below)
   set -l last_status $status
   set -x theme_color_scheme ayu-light
+  # set -x theme_show_branch true
 
   __nonissue_glyphs
   __nonissue_colors ayu-light
@@ -193,23 +201,42 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
 
   set -l cwd (basename (prompt_pwd))
 
-  if [ (_git_branch_name) ]
-    set -l setgrey (set_color -o $med_grey)
-    set -l setdarkgrey (set_color -o $dark_grey)
-    set -l git_branch (_git_branch_name)
-    set git_info " $setgrey$branch_glyph $setdarkgrey$git_branch"
+  # pseudo code for new better logic
+  # if (theme_show_branch || theme_show_status)
+  #   if theme_show_branch
+  #     set gitinfo to gitinfo + branchname
+  #     set cur_dir background
+  #   end
 
-    if [ (_is_git_dirty) ]
-      set -l setred (set_color -o $red)
-      set -l dirty $dirty_gylph
-      # set_color -o $rich_orange 
-      set -l setorange (set_color -o $another_orange)
-      set git_info "$setorange$git_info $setred$dirty"
-    else if [ ~(_is_git_dirty) ]
-      set -l setgreen (set_color -o $puke_green)
-      set -l clean $clean_glyph
-      set git_info "$git_info $setgreen$clean"
-    end
+  #   if theme_show_status
+  #     set gitinfo to gitinfo + status
+  #   end
+  # else 
+  #   ~no git stuff~
+  # end
+  
+    if [ (_git_branch_name) ]
+      set -l setgrey (set_color -o $med_grey)
+      set -l setdarkgrey (set_color -o $dark_grey)
+      set -l git_branch (_git_branch_name)
+
+      if [ "$theme_show_branch" != false ]
+        set git_info "$setgrey$branch_glyph $setdarkgrey$git_branch"
+      else if [ "$theme_show_status" != false ]
+        set git_info " $setgrey$branch_glyph"
+      end
+
+      if [ (_is_git_dirty) ]
+        set -l setred (set_color -o $red)
+        set -l dirty $dirty_gylph
+        # set_color -o $rich_orange 
+        set -l setorange (set_color -o $another_orange)
+        set git_info "$setorange$git_info $setred$dirty"
+      else if [ ~(_is_git_dirty) ]
+        set -l setgreen (set_color -o $puke_green)
+        set -l clean $clean_glyph
+        set git_info "$git_info $setgreen$clean"
+      end
   end
 
   __nonissue_start_segment $curdir_bg
