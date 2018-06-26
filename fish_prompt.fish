@@ -86,9 +86,9 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l med_grey2 B9BCBF
       set -l dark_grey 61676C
 
-      set -x curdir_bg                      $med_blue $white
-      set -x repo_bg_dirty                  $bright_orange $white
-      set -x repo_bg_clean                  $teal $white
+      set -x curdir_bg                      $white $teal --bold
+      set -x repo_bg_dirty                  $pale_orange $white --bold
+      set -x repo_bg_clean                  $teal $white --bold
       
       set -x segment_exit                   $grey[3] $grey[1]
 
