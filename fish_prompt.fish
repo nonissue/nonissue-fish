@@ -32,7 +32,6 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -x dust_bright_red EC5E01
       
       # only combos i use
-      
       set -x repo_bg_dirty                  normal $dust_bright_yellow
       set -x repo_bg_clean                  normal $dust_bright_green
       set -x curdir_bg                      $dust_redalt $white
@@ -40,11 +39,58 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
 
       # the rest
       # set -x color_initial_segment_exit     $grey[3] $grey[1]
-    case 'light'
+    case 'ayu-light'
+    # colors taken from ayu-light theme
       set -x grey       cccccc 999999 333333
       set -x white      ffffff
       set -x black      111111 # i dont want actual black tbh
       set -l ruby_red af0000
+
+      
+      set -l accent FF8F40
+      set -l foreground 6F7A86
+      set -l cursor FF8000
+      set -l selection F3F1E9
+      set -l gutter_fg D9DBDD
+      set -l gutter_bg FAFAFA
+      set -l invisibles D9DBDD
+      set -l line_hl F3F3F3
+      set -l comments ABB0B6
+      set -l var 61676C
+      set -l constant FF8F40
+      
+      set -l white FAFAFA
+
+      set -l pale_orange FF8F40
+      set -l rich_orange FA6E32
+      set -l bright_orange F29718 
+      set -l another_orange ED9366
+      set -l peach E6B673
+
+      set -l med_blue 399EE6
+      set -l pale_blue 55B4D4
+      
+      set -l pink F07171
+      set -l red F51818
+      set -l red_pink ec5f67
+
+      set -l lav c594c5
+
+      set -l teal 4CBF99
+      set -l puke_green 86B300
+
+      set -l light_grey DEE0E1
+      set -l light_grey2 D9DBDD
+      set -l lightest_grey E9F2F8
+      set -l med_grey ABB0B6
+      set -l med_grey2 B9BCBF
+      set -l dark_grey 61676C
+
+      set -x curdir_bg                      $med_blue $white
+      set -x repo_bg_dirty                  $bright_orange $white
+      set -x repo_bg_clean                  $teal $white
+      
+      set -x segment_exit                   $grey[3] $grey[1]
 
   end
 end
@@ -136,7 +182,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -x theme_color_scheme spacedust
 
   __nonissue_glyphs
-  __nonissue_colors spacedust
+  __nonissue_colors ayu-light
 
   type -q nonissue_colors
     and nonissue_colors
@@ -164,16 +210,12 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   if [ (_git_branch_name) ]
     if [ (_is_git_dirty) ] 
       __nonissue_start_segment $repo_bg_dirty
-      # hmm, below is a workaround to change the last
-      # separator to match the current git status
       set -x end_sep $repo_bg_dirty[2]
-      # set -x end_sep $dust_bright_yellow
       echo -n -s $git_info
       echo -n '  '
     else if [ ~(_is_git_dirty) ]
       __nonissue_start_segment $repo_bg_clean
       set -x end_sep $repo_bg_clean[2]
-      # set -x end_sep $dust_bright_green
       echo -n -s $git_info
       echo -n '  '
     end
@@ -182,5 +224,6 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   __nonissue_start_segment normal $end_sep
   set color normal
   echo -n ' '
+  __nonissue_finish_segments
   
 end
