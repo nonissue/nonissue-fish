@@ -242,16 +242,16 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
         set -l setred (set_color $red)
         set -l dirty $dirty_gylph 
         set -l setorange (set_color -o $another_orange)
-        set git_info "$setorange$git_info $setred$branch_glyph "
-        echo -n -s $git_info
+        set git_info "$setorange$git_info $setred$branch_glyph"
       else if [ ~(_is_git_dirty) ]
         set -l setgreen (set_color -o $puke_green)
         set -l clean $clean_glyph
-        set git_info "$git_info $setgreen$branch_glyphalt2 "
-        echo -n -s $git_info
+        set git_info "$git_info $setgreen$branch_glyph"
       end
     end
   end
+
+  echo -n -s $git_info
   
 
   # if [ (_git_branch_name) ]
@@ -267,7 +267,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   #     echo -n '  '
   #   end
   # end
-
+  echo -n " "
   set -l colors $light_grey $med_grey $dark_grey
   for color in $colors
     echo -n (set_color $color)">"
