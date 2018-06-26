@@ -62,9 +62,9 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l white FAFAFA
 
       set -l pale_orange FF8F40
-      set -l rich_orange FA6E32
+      set -x rich_orange FA6E32
       set -l bright_orange F29718 
-      set -l another_orange ED9366
+      set -x another_orange ED9366
       set -l peach E6B673
 
       set -l med_blue 399EE6
@@ -73,23 +73,23 @@ function __nonissue_colors -S -a color_scheme -d 'Define colors used by nonissue
       set -l darkest_blue 2571A4
       
       set -l pink F07171
-      set -l red F51818
+      set -x red F51818
       set -l red_pink ec5f67
 
       set -l lav c594c5
 
-      set -l teal 4CBF99
-      set -l puke_green 86B300
+      set -x teal 4CBF99
+      set -x puke_green 86B300
 
-      set -l light_grey DEE0E1
-      set -l light_grey2 D9DBDD
-      set -l lightest_grey E9F2F8
-      set -l med_grey ABB0B6
-      set -l med_grey2 B9BCBF
-      set -l dark_grey 61676C
+      set -x light_grey DEE0E1
+      set -x light_grey2 D9DBDD
+      set -x lightest_grey E9F2F8
+      set -x med_grey ABB0B6
+      set -x med_grey2 B9BCBF
+      set -x dark_grey 61676C
 
       set -x curdir_bg                      $lightest_grey $darkest_blue --bold
-      set -x repo_bg_dirty                  normal $bright_orange --bold
+      set -x repo_bg_dirty                  normal normal --bold
       set -x repo_bg_clean                  $teal $white --bold
       
       set -x segment_exit                   $grey[3] $grey[1]
@@ -181,7 +181,7 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   echo ' '
   # Save the last status for later (do this before the `set` calls below)
   set -l last_status $status
-  set -x theme_color_scheme spacedust
+  set -x theme_color_scheme ayu-light
 
   __nonissue_glyphs
   __nonissue_colors ayu-light
@@ -194,15 +194,21 @@ function fish_prompt -d 'nonissue, a mod of several existing themes'
   set -l cwd (basename (prompt_pwd))
 
   if [ (_git_branch_name) ]
+    set -l setgrey (set_color -o $med_grey)
+    set -l setdarkgrey (set_color -o $dark_grey)
     set -l git_branch (_git_branch_name)
-    set git_info " $branch_glyph $git_branch"
+    set git_info " $setgrey$branch_glyph $setdarkgrey$git_branch"
 
     if [ (_is_git_dirty) ]
+      set -l setred (set_color -o $red)
       set -l dirty $dirty_gylph
-      set git_info "$git_info $dirty"
+      # set_color -o $rich_orange 
+      set -l setorange (set_color -o $another_orange)
+      set git_info "$setorange$git_info $setred$dirty"
     else if [ ~(_is_git_dirty) ]
+      set -l setgreen (set_color -o $puke_green)
       set -l clean $clean_glyph
-      set git_info "$git_info $clean"
+      set git_info "$git_info $setgreen$clean"
     end
   end
 
